@@ -80,6 +80,12 @@ our @ISA = qw(HTML::Element HTML::Parser);
 *HTML::TreeBuilder::isFormElement       = \%HTML::Tagset::isFormElement;
 *HTML::TreeBuilder::p_closure_barriers  = \@HTML::Tagset::p_closure_barriers;
 
+# Add some body tags that are valid HTML5, but not part of HTML::Tagset.
+foreach (qw(article aside details figcaption figure footer header main
+            mark nav section summary time)) {
+    $HTML::TreeBuilder::isBodyElement{$_}=1;
+}
+
 #==========================================================================
 # Two little shortcut constructors:
 
