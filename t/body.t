@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 
-use Test::More tests => 18;
+use Test::More tests => 19;
 
 use HTML::TreeBuilder;
 
@@ -67,6 +67,13 @@ OTHER_LANGUAGES: {
     is( $html->as_HTML(),
         "<html><head></head><body>Geb&uuml;hr vor Ort von &euro; 30,- pro Woche</body></html>"
     );
+}
+
+HTML5_TAGS: {
+    my $root   = HTML::TreeBuilder->new();
+    my $data   = '<section>Hello!</section>';
+    my $html   = $root->parse($data)->eof->elementify();
+    is( $html->as_HTML(), "<html><head></head><body><section>Hello!</section></body></html>" );
 }
 
 RT_18570: {
